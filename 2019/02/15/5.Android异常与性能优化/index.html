@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>风清</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="anr什么是anrApplication Not Responding。 应用程序无响应的对话框，可以让用户选择等待(让程序继续运行)，或者关闭。造成的原因就是在主线程中做了耗时操作。 activity当中最长的执行时间5秒。5秒内无法响应用户的输入事件。 广播 10秒。 anr原因 应用程序的响应性由activity manager和windowManager系统服务监视的， 主要原因：主线程做">
+<meta property="og:type" content="article">
+<meta property="og:title" content="风清">
+<meta property="og:url" content="http://yoursite.com/2019/02/15/5.Android异常与性能优化/index.html">
+<meta property="og:site_name" content="风清">
+<meta property="og:description" content="anr什么是anrApplication Not Responding。 应用程序无响应的对话框，可以让用户选择等待(让程序继续运行)，或者关闭。造成的原因就是在主线程中做了耗时操作。 activity当中最长的执行时间5秒。5秒内无法响应用户的输入事件。 广播 10秒。 anr原因 应用程序的响应性由activity manager和windowManager系统服务监视的， 主要原因：主线程做">
+<meta property="og:locale" content="zh">
+<meta property="og:image" content="https://i.imgur.com/bVxNqsB.png">
+<meta property="og:image" content="https://i.imgur.com/HbxAgss.jpg">
+<meta property="og:updated_time" content="2019-02-17T10:48:04.672Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="风清">
+<meta name="twitter:description" content="anr什么是anrApplication Not Responding。 应用程序无响应的对话框，可以让用户选择等待(让程序继续运行)，或者关闭。造成的原因就是在主线程中做了耗时操作。 activity当中最长的执行时间5秒。5秒内无法响应用户的输入事件。 广播 10秒。 anr原因 应用程序的响应性由activity manager和windowManager系统服务监视的， 主要原因：主线程做">
+<meta name="twitter:image" content="https://i.imgur.com/bVxNqsB.png">
+  
+    <link rel="alternate" href="/atom.xml" title="风清" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">风清</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-5.Android异常与性能优化" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/02/15/5.Android异常与性能优化/" class="article-date">
+  <time datetime="2019-02-15T05:59:10.180Z" itemprop="datePublished">2019-02-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="anr"><a href="#anr" class="headerlink" title="anr"></a>anr</h2><p><strong>什么是anr</strong><br>Application Not Responding。</p>
+<p>应用程序无响应的对话框，可以让用户选择等待(让程序继续运行)，或者关闭。造成的原因就是在主线程中做了耗时操作。</p>
+<p>activity当中最长的执行时间5秒。5秒内无法响应用户的输入事件。</p>
+<p>广播 10秒。</p>
+<p><strong>anr原因</strong></p>
+<p>应用程序的响应性由activity manager和windowManager系统服务监视的，</p>
+<p>主要原因：主线程做了耗时操作（io,耗时计算等）。</p>
+<p><img src="https://i.imgur.com/bVxNqsB.png" alt=""></p>
+<p><strong>解决anr</strong></p>
+<p>使用AsyncTask处理耗时IO操作</p>
+<p>使用Thread和HandlerThread提高优先级</p>
+<p>使用handler来处理工作线程的耗时任务</p>
+<p>在Activity的onCreate 和onResume回调中尽量避免耗时的代码。</p>
+<h2 id="oom"><a href="#oom" class="headerlink" title="oom"></a>oom</h2><h4 id="什么是oom"><a href="#什么是oom" class="headerlink" title="什么是oom"></a>什么是oom</h4><p>当前占用的内存加上我们申请的内存资源超过了Dalvik虚拟机的最大内存限制就会抛出Out of memory异常。</p>
+<p><strong>内存溢出 内存抖动 内存泄漏</strong></p>
+<p>溢出： oom</p>
+<p>抖动：短时间内大量对象被创建，会被马上释放，瞬间产生的对象严重占用内存区域，达到阈值的时候就会触发Gc，这样你刚刚创建的对象很快被回收，创建很多个对象时候会造成堆内存的压力，触发更多的Gc。</p>
+<p>泄漏：进程中的某些对象，没有被其他地方引用到了，但是他们可以直接或间接的引用到Gc root(就是其他还没有没引用到的对象),导致Gc无法产生作用。 内存泄漏累计到一定程度，就会造成内存溢出。</p>
+<p>oom可以这样理解：堆内存上的内存没有被释放，无法控制，从而系统可用的内存越来越少，导致系统运行速度越来越慢。严重情况下会造成程序崩溃。</p>
+<p><strong>解决oom</strong></p>
+<p>bitmap：图片显示，列表监听到滑动的时候不去调用网络请求，监听到滑动停止的时候在加载图片。</p>
+<p>及时释放内存：不定期的回收内存，bitmap构造方法私有，BitmapFactory生成的bitmap对象都是通过jni调用方式实现的，加载的bitmap内存有两部分，java  c(jni区域) bitmap对象是由java区分配的内存，  java区的内存可以被Gc掉，对应的C的内存不能被回收掉，这里只能调用Gc功能释放，这里及时释放说的就是释放C区内存，bitmap.recycle方法里面确实调用jni了。如果不调用该方法，不一定引起oom。</p>
+<p>图片压缩：大图超过分配的内存大小。</p>
+<p>inBitmap属性：使用之前bitmap内存区域，不再去重新申请，</p>
+<p>捕获异常：实例化 bitmap时候要进行异常捕获，捕获到的是error属性。</p>
+<p>其他方法：</p>
+<p>避免在onDraw方法里面执行对象的创建。(内存抖动)</p>
+<p>谨慎使用多进程。(代码逻辑更复杂，内存更多，崩溃更多)</p>
+<h2 id="bitmap优化"><a href="#bitmap优化" class="headerlink" title="bitmap优化"></a>bitmap优化</h2><p>recycle:java和native内存，对bitmap回收。<br>释放bitmap内存的时候会释放和bitmap对象有关的native的内存，同时会清理有关对象的引用，并不是立即清理，而是给垃圾回收机制发送消息，让它处理。当调用该方法时候，标明该bitmap是dead 状态，如果继续使用该bitmap调用其他相关的方法就会引起异常。recycle不可逆。<br>建议我们可以不用主动调用recycle方法，当垃圾回收机制，当没有其他引用该对象的时候，就会清理。</p>
+<p>LRU:算法（三级缓存使用），最近最少使用的缓存对象，会清理出去。内部使用LinkedHashMap实现，提供了get put方法完成我们缓存的添加和获取操作，提供核心方法trimToSize当我们缓存满的时候会移除较早的不常用的缓存对象，添加新的缓存对象。(计算size大小，safeSizeOf，entryRemoved(空方法，二次缓存复写))。</p>
+<p>计算inSampleSize:缩减比例，获取bitmapFactory.options里面的宽高，和设定的宽高进行比较取最小的比例。</p>
+<p>缩略图：根据inSampleSize计算出来的值来保存bitmap到相应的内存当中。<br><img src="https://i.imgur.com/HbxAgss.jpg" alt=""><br>options.inJustDecodeBounds 属性：设为true，在进行BitmapFactory.decodeFile方法拿到bitmap，获取到图片参数,过程不加载到内存中，设为false后，通过计算好的缩放比例，把图片加到内存当中。</p>
+<p>三级缓存：如果应用所有的图片都是通过网络请求获取，消耗用户流量，体验不好。网络  本地 内存  三级。</p>
+<p>原理：首次打开应用时候请求一张图片的时候只能从网络上加载图片，加载成功保存到本地和内存中一份，当用户再次进入app后请求相同uri时候，这个时候从内存或者本地中获取资源。加少了用户流量。</p>
+<p>内存缓存优先加载，速度最快的。</p>
+<h2 id="ui卡顿"><a href="#ui卡顿" class="headerlink" title="ui卡顿"></a>ui卡顿</h2><h4 id="卡顿原理"><a href="#卡顿原理" class="headerlink" title="卡顿原理"></a>卡顿原理</h4><p>60fps-&gt;16ms：</p>
+<p>感觉到卡顿最主要来源渲染问题。<br>UI设计师界面绚丽，大的图片，没有考虑到安卓系统无法完成复杂的界面渲染操作，安卓系统每隔16ms发送信号，触发对UI进行渲染，如果每次渲染都成功，就会达到流畅的画面所需要的60fps(每秒60帧)，想要实现60fps，渲染操作必须在16ms内完成。</p>
+<p>在动画 列表滑动过程，有时候就会觉得有卡顿，逻辑复杂导致丢帧现象。</p>
+<p>item太复杂，动画执行太多等。</p>
+<p>overdraw:过度绘制，同一帧的时间内绘制了很多次，多层次的ui结构。浪费了GPU,CPU资源。ui布局中有大量重叠的部分，CPU镜像调试，减少红色，增加蓝色。(背景色案例，减少UI卡顿)。</p>
+<h4 id="卡顿原因分析"><a href="#卡顿原因分析" class="headerlink" title="卡顿原因分析"></a>卡顿原因分析</h4><p>人为在UI线程中做轻微耗时操作，导致卡顿。</p>
+<p>布局layout过于复杂，无法再16ms内完成渲染。</p>
+<p>同一时间动画执行次数过多，导致CPU  GPU负载过重。</p>
+<p>View过度绘制，导致某些像素在同一帧时间内绘制多次，负载过重。</p>
+<p>View 频繁的处罚measure layout耗时过多，整个view频繁的重新绘制。</p>
+<p>内存频繁GC过多，导致暂时阻塞渲染操作</p>
+<p>代码逻辑导致加载执行缓慢 ，代码优化</p>
+<p>ANR</p>
+<h4 id="卡顿总结"><a href="#卡顿总结" class="headerlink" title="卡顿总结"></a>卡顿总结</h4><p>布局优化：include(布局公共部分) merge(防止引用布局产生多余的布局嵌套和include配合使用减少一个层级) ViewStub(轻量级隐藏的没有尺寸的view)。weight代替长和宽。</p>
+<p>列表和Adapter优化 :复用convertview ,滑动过程显示默认图缩略图，滑动结束后进行数据更新</p>
+<p>背景和图片等内存分配优化：避免背景图重复设置，图片压缩</p>
+<p>避免ANR。</p>
+<h2 id="内存泄漏"><a href="#内存泄漏" class="headerlink" title="内存泄漏"></a>内存泄漏</h2><h2 id="内存管理"><a href="#内存管理" class="headerlink" title="内存管理"></a>内存管理</h2><h2 id="冷启动优化"><a href="#冷启动优化" class="headerlink" title="冷启动优化"></a>冷启动优化</h2><h2 id="其他优化"><a href="#其他优化" class="headerlink" title="其他优化"></a>其他优化</h2>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/02/15/5.Android异常与性能优化/" data-id="cjs9pyuhx00060kv11d50cvgx" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/02/15/8.java高级技术/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/02/15/4.Android项目构建/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/02/15/7.热门前沿技术/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/02/15/6.开源框架/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/02/15/8.java高级技术/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/02/15/5.Android异常与性能优化/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/02/15/4.Android项目构建/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Zhang Lei<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

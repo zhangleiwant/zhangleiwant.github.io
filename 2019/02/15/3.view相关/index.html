@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>风清</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="##View绘制机制  ####view树绘制流程用户触发，请求绘制，请求是从fremwork层进行绘制，从根节点对布局进行测量绘制。 整个流程 在viewRoot方法进行的。 measure-&amp;gt;layout-&amp;gt;draw 是否重新测量， 递归过程，从父到子。 ####measure：自上而下进行遍历，根据父容器的测量规格参数对子容器进行测量，然后将测量结果返还给父容器。(如果父视图发现">
+<meta property="og:type" content="article">
+<meta property="og:title" content="风清">
+<meta property="og:url" content="http://yoursite.com/2019/02/15/3.view相关/index.html">
+<meta property="og:site_name" content="风清">
+<meta property="og:description" content="##View绘制机制  ####view树绘制流程用户触发，请求绘制，请求是从fremwork层进行绘制，从根节点对布局进行测量绘制。 整个流程 在viewRoot方法进行的。 measure-&amp;gt;layout-&amp;gt;draw 是否重新测量， 递归过程，从父到子。 ####measure：自上而下进行遍历，根据父容器的测量规格参数对子容器进行测量，然后将测量结果返还给父容器。(如果父视图发现">
+<meta property="og:locale" content="zh">
+<meta property="og:image" content="https://i.imgur.com/qqYdUnp.png">
+<meta property="og:image" content="https://i.imgur.com/QC18Ohd.png">
+<meta property="og:image" content="https://i.imgur.com/KVabU4u.png">
+<meta property="og:image" content="https://i.imgur.com/0D2YE8K.png">
+<meta property="og:image" content="https://i.imgur.com/myv33D5.png">
+<meta property="og:updated_time" content="2019-02-16T14:47:57.014Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="风清">
+<meta name="twitter:description" content="##View绘制机制  ####view树绘制流程用户触发，请求绘制，请求是从fremwork层进行绘制，从根节点对布局进行测量绘制。 整个流程 在viewRoot方法进行的。 measure-&amp;gt;layout-&amp;gt;draw 是否重新测量， 递归过程，从父到子。 ####measure：自上而下进行遍历，根据父容器的测量规格参数对子容器进行测量，然后将测量结果返还给父容器。(如果父视图发现">
+<meta name="twitter:image" content="https://i.imgur.com/qqYdUnp.png">
+  
+    <link rel="alternate" href="/atom.xml" title="风清" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">风清</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-3.view相关" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/02/15/3.view相关/" class="article-date">
+  <time datetime="2019-02-15T05:59:06.497Z" itemprop="datePublished">2019-02-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>##View绘制机制</p>
+<p> ####view树绘制流程<br>用户触发，请求绘制，请求是从fremwork层进行绘制，从根节点对布局进行测量绘制。</p>
+<p>整个流程 在viewRoot方法进行的。</p>
+<p>measure-&gt;layout-&gt;draw 是否重新测量，</p>
+<p>递归过程，从父到子。</p>
+<p>####measure：<br>自上而下进行遍历，根据父容器的测量规格参数对子容器进行测量，然后将测量结果返还给父容器。(如果父视图发现子视图传递的宽高有不对的地方，会再次请求子视图进行测量)<br><img src="https://i.imgur.com/qqYdUnp.png" alt=""></p>
+<p>ViewGroup.LayoutParams指定试图高度宽度的参数。</p>
+<p>三种：具体的值，matchParent(不包括padding值),wrapContent</p>
+<p>MeasureSpec:测量规格，32位地址值，前两位表示测量模式，后面30位表示某种测量模式下测量的大小。</p>
+<p>在measure过程中，系统根据View的LayoutParams结合父容器生产一个MeasureSpec,然后spec就去规定怎样去确定View的大小。</p>
+<p>三种选择：不确定的(UNSPECIFIED，手机屏幕范围内任意大小)；Exactly（父容器为子视图限定值）;At_most(父容器为子视图规定最大值)。</p>
+<p><strong>measure源码</strong><br>前部分获取到测量规格，后面调用到onMeasure方法。自定义view只要复写onMeasure()方法实现测量逻辑。</p>
+<p>onMeasure方法：</p>
+<p>两个参数，宽高的测量规格。</p>
+<p>调用setMeasureDimension方法，拿到onMeasure获取到的尺寸。最终调用的方法。</p>
+<p><strong>measure总结</strong><br>View的测量过程开始于viewGroup 通过不断的遍历子控件的measure方法，根据viewGroup的measureSpec和子控件的layoutParams决定子视图测量规格，进一步获取子view宽高  然后一层一层向下传递，不断的保存父控件的测量宽高，整个就是树型递归过程。为整个view树计算实际大小。</p>
+<p>####layout:<br>由跟视图自上而下遍历，根据测量所得到的尺寸，摆放自身位置。<br>viewgroup中的onLayout 空实现。自定义的时候必须实现。</p>
+<p>LinearLayout onLayout中  调用layoutVertical方法，for循环中 获取到子控件的宽高，调用setChildFrame方法，放置视图在屏幕中的位置。</p>
+<p>####draw 两个容易混淆的方法。<br>invalidate():请求系统，如果大小没有发生变化，就不会调用layout放置过程。</p>
+<p>requestLayout():当布局发生变化时候，布局方向，大小，我们手动调用requestLayout方法，（自定义view,重新测量）这样就会触发调用measure,layout过程。但是不会调用draw方法。 </p>
+<p>##事件分发机制</p>
+<p>####为什么会有事件分发机制<br>android上面的view是树形结构，view可能会重叠在一起，当我们点击的地方有多个view都可以响应的，这个点击事件应该给谁，<br>引入事件分发机制解决该问题。<br><img src="https://i.imgur.com/QC18Ohd.png" alt=""><br><img src="https://i.imgur.com/KVabU4u.png" alt=""><br>标题和透明布局是DecorView里面的布局。</p>
+<p>window (Phonewindow实现类) 所有视图最顶层的管理容器。</p>
+<p>phonewindow 通过内部类DecorView进行消息传递，pw通过指示告诉dv传递给下面的view,下面的view通过dv返回给pw。</p>
+<h4 id="三个方法"><a href="#三个方法" class="headerlink" title="三个方法"></a>三个方法</h4><p><strong>activity和view没有onInterceptTouchEvent拦截事件</strong>。<br>activity作为整个事件的原始分发者，如果拦截事件，会导致整个屏幕无法响应事件。</p>
+<p>view作为事件传递的末端    ，要么把事件销毁，要么不处理，因为它下面已经没有要分发的视图和控件了。</p>
+<p>dispatchTouchEvent分发事件</p>
+<p>链首决定了是由自己调用onTouchEvent处理还是分发给子view由子view调用自身的dispatchTouchEvent处理。</p>
+<p>内部调用了onInterceptTouchEvent判断是否拦截事件。</p>
+<p>onInterceptTouchEvent拦截事件</p>
+<p>如果事件传递到某个view如果需要拦截事件，就会在view的<br>onTouchEvent进行逻辑处理。</p>
+<p>onTouchEvent处理传递到view的手势事件：<br>按下，移动，抬起，取消等。</p>
+<h4 id="事件分发流程"><a href="#事件分发流程" class="headerlink" title="事件分发流程"></a>事件分发流程</h4><p>Activity-&gt;PhoneWindow-&gt;DecorView-&gt;ViewGroup-&gt;View…</p>
+<p>android经典设计模式，责任链设计模式，一层层向下分发，如果最后一个view不处理事件，这个事件并不会浪费掉，会一层层回传给activity,如果activity也不处理，才会抛弃掉。</p>
+<p><img src="https://i.imgur.com/0D2YE8K.png" alt=""></p>
+<h2 id="ListView"><a href="#ListView" class="headerlink" title="ListView"></a>ListView</h2><h4 id="什么是Listview"><a href="#什么是Listview" class="headerlink" title="什么是Listview"></a>什么是Listview</h4><p>一个数据集合以滚动方式展示到用户界面的view。</p>
+<h4 id="适配器模式"><a href="#适配器模式" class="headerlink" title="适配器模式"></a>适配器模式</h4><p>adapter是listview和数据的桥梁。让listview绘制相应的数据<br>到item上。</p>
+<p>getcount返回的是多少条数据， 有多少数据就会调用几次getview。</p>
+<p>那么，让数据很多的时候，会不会造成oom?</p>
+<p>不会的，listview中有神奇的机制，recycleBin机制。</p>
+<h4 id="recycleBin机制"><a href="#recycleBin机制" class="headerlink" title="recycleBin机制"></a>recycleBin机制</h4><p>absListView中的内部类RecycleBin，<br><img src="https://i.imgur.com/myv33D5.png" alt=""><br>fillActiveViews<br>getActiveView</p>
+<h4 id="listview优化"><a href="#listview优化" class="headerlink" title="listview优化"></a>listview优化</h4><p>convertview复用  viewholder 遍历获取控件耗时(所有的view是二叉树的结构)。</p>
+<p>图片三级缓存、少做监听滑动事件。(卡顿,滑动停止在进行处理)。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/02/15/3.view相关/" data-id="cjs9pyuhv00050kv1fawwa7wd" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/02/15/4.Android项目构建/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/02/15/2.异步消息处理机制/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/02/15/7.热门前沿技术/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/02/15/6.开源框架/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/02/15/8.java高级技术/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/02/15/5.Android异常与性能优化/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/02/15/4.Android项目构建/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Zhang Lei<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

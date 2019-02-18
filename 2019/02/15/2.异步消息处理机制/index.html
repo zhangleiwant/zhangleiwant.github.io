@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>风清</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="##Handler ####什么是handlerandroid.view.ViewRootImpl$CalledFromWrongThreadExCeption:Only the  original thread that created a view hierarchy can touch its views.异常只有在原始线程(UI主线程)才能更新UI。handler发送消息给主线程更新UI。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="风清">
+<meta property="og:url" content="http://yoursite.com/2019/02/15/2.异步消息处理机制/index.html">
+<meta property="og:site_name" content="风清">
+<meta property="og:description" content="##Handler ####什么是handlerandroid.view.ViewRootImpl$CalledFromWrongThreadExCeption:Only the  original thread that created a view hierarchy can touch its views.异常只有在原始线程(UI主线程)才能更新UI。handler发送消息给主线程更新UI。">
+<meta property="og:locale" content="zh">
+<meta property="og:image" content="https://i.imgur.com/NyQyksH.jpg">
+<meta property="og:image" content="https://i.imgur.com/qvHNN1N.jpg">
+<meta property="og:image" content="https://i.imgur.com/Gi32h4p.jpg">
+<meta property="og:image" content="https://i.imgur.com/2XBmGfr.png">
+<meta property="og:image" content="https://i.imgur.com/b2xx7kd.png">
+<meta property="og:image" content="https://i.imgur.com/oXFdp3B.png">
+<meta property="og:image" content="https://i.imgur.com/vjYbmj5.png">
+<meta property="og:image" content="https://i.imgur.com/gsLp2S6.png">
+<meta property="og:image" content="https://i.imgur.com/fWeAcVf.png">
+<meta property="og:image" content="https://i.imgur.com/gIHw1N0.png">
+<meta property="og:image" content="https://i.imgur.com/Q8vZw0s.png">
+<meta property="og:image" content="https://i.imgur.com/XicmPHl.jpg">
+<meta property="og:image" content="https://i.imgur.com/6rX8JZK.jpg">
+<meta property="og:image" content="https://i.imgur.com/qMoRBBP.jpg">
+<meta property="og:image" content="https://i.imgur.com/YwwP4Sj.jpg">
+<meta property="og:image" content="https://i.imgur.com/ImMQxzB.jpg">
+<meta property="og:updated_time" content="2019-02-16T11:22:38.070Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="风清">
+<meta name="twitter:description" content="##Handler ####什么是handlerandroid.view.ViewRootImpl$CalledFromWrongThreadExCeption:Only the  original thread that created a view hierarchy can touch its views.异常只有在原始线程(UI主线程)才能更新UI。handler发送消息给主线程更新UI。">
+<meta name="twitter:image" content="https://i.imgur.com/NyQyksH.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="风清" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">风清</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-2.异步消息处理机制" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/02/15/2.异步消息处理机制/" class="article-date">
+  <time datetime="2019-02-15T05:59:01.909Z" itemprop="datePublished">2019-02-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>##Handler</p>
+<p>####什么是handler<br>android.view.ViewRootImpl$CalledFromWrongThreadExCeption:Only the  original thread that created a view hierarchy can touch its views.<br>异常只有在原始线程(UI主线程)才能更新UI。<br>handler发送消息给主线程更新UI。</p>
+<p><strong>handler是android消息机制的一个接口</strong><br>开发中怎么创建使用，它的作用：更新UI, 子线程耗时操作，耗时操作完成之后，进行更新UI。</p>
+<p><strong>那么什么是handler</strong>?</p>
+<p>handler通过发送和处理Message和Runnable对象来关联相对应线程的MessageQueue。</p>
+<hr>
+<p>1.可以让对应的Message和Runnable在未来的某个时间点进行相应处理。<br>(子线程处理完耗时操作，通过发送Runnable 和getMessage方式通知UI线程更新)</p>
+<p>2.自己想要处理的耗时操作放在子线程，让更新ui的操作放在主线程。</p>
+<p>####handler的使用方法<br>post(runnable)：(调用的也是sendMessage)<br><img src="https://i.imgur.com/NyQyksH.jpg" alt=""><br>第一步：利用成员变量形式创建handler对象，关联到主线程。</p>
+<p>第二步：handler.post方式传递消息。</p>
+<p>sendMessage(message):</p>
+<p><img src="https://i.imgur.com/qvHNN1N.jpg" alt=""><br><img src="https://i.imgur.com/Gi32h4p.jpg" alt=""><br>第一步：创建hadler 复写handleMessage方法，根据message.what 值进行操作(更新UI)。</p>
+<p>第二步：创建Message对象what ,arg1 ..message携带数据</p>
+<p>第三步：handler.sendMessage将msg传递给UI线程。</p>
+<p>####handler机制原理<br><img src="https://i.imgur.com/2XBmGfr.png" alt=""><br><strong>Lopper：</strong>从MessageQueue读取消息，读到消息后发送给handler进行处理。</p>
+<p>MessageQueue消息队列，先进先出方式管理Message，在创建Lopper时候loop()方法中它已经创建MessageQueue。这样Lopper MessageQueue已经关联到一起。</p>
+<p>Message就是消息对象，里面很多参数 what,arg1 obj,target。</p>
+<p>handler发送消息，处理消息。Lopper发送消息是通过handler进行的，handler只在它相关的MessageQueue层进行。而MessageQueue是和Lopper关联的。所以说，handler发送消息必须有一个维护它的Looper。</p>
+<p><strong>源码</strong>：</p>
+<p>Handler构造方法中：<br>mLooper = Looper.myLooper();</p>
+<p>通过sThreadLocal.get()获取：和线程关联，每一个线程有单独的Looper。</p>
+<p>什么时候 sThreadLocal.set():Looper的prepare方法中。</p>
+<p>mQueue = mLooper.mQueue;</p>
+<p>三者关联起来。</p>
+<hr>
+<p>handler通过post ,sendMessage方法(将消息放进消息队列)发送消息需要lopper开启loop方法才能处理消息。</p>
+<p>loop方法就是for死循环不断的从消息队列中获取消息，最后处理消息。</p>
+<p>Looper总结：<br>通过prepare创建Looper 把它保存在ThreadLocal中，通过loop方法Lopper从消息队列中分发消息。</p>
+<p>loop方法最终通过 msg.target.dispatchMessage()分发消息。<br>msg.target就是Handler。</p>
+<p>查看handler的dispatchMessage 接口回调 handleMessage()。</p>
+<p><img src="https://i.imgur.com/b2xx7kd.png" alt=""></p>
+<p>####handler引起的内存泄漏以及解决办法</p>
+<p>原因：handler持有Avtivity引用，activity要被回收的时候，由于handler有耗时操作导致没有被释放，所持有的acitivity没有被回收，停留在内存当中。</p>
+<p>解决方法：<br>handler设为静态类；</p>
+<p>activity destroy方法中调用handler.removeCallbacks()。<br><img src="https://i.imgur.com/oXFdp3B.png" alt=""></p>
+<p>子线程不能开启handler :</p>
+<p>子线程需要消息队列保存发送的消息，而消息队列由Looper管理的，默认子线程没有开启Looper 消息队列 不能从消息队列中读取消息。</p>
+<p>如果想要在子线程使用handler发送消息，需要创建Looper，通过Looper.loop开启循环。</p>
+<p>##AsyncTask</p>
+<p>####什么是AsyncTask<br>本质上就是一个封装了线程池和handler的异步框架。主要是用来处理异步任务，由于内部集成了handler，所以说能够在子线程和UI线程灵活切换。</p>
+<p>####使用<br>3个参数，五个方法<br>AsyncTask 泛型类， 第一个 后台执行任务时，传入的参数；</p>
+<p>第二个，后台任务进度参数</p>
+<p>第三个，后台任务完成后结果返回类型。</p>
+<p><strong>方法</strong></p>
+<p>onPreExecute(): 耗时任务前 ，初始化工作， 任务开始，UI进度条等，UI线程中。</p>
+<p>doInBackground():执行耗时任务操作，任务结果返回给 onPostExcute(),方法中调用 publishProgress处理进度返给onProgressUpdate。</p>
+<p>onProgressUpdate:publishProgress 调用之后就会调用，进度显示，UI线程中。</p>
+<p>onPostExcute：后台计算完成调用。处理任务结果，UI线程中。</p>
+<p>####AsyncTask机制原理。</p>
+<p><img src="https://i.imgur.com/vjYbmj5.png" alt=""></p>
+<h4 id="AsyncTask-注意事项"><a href="#AsyncTask-注意事项" class="headerlink" title="AsyncTask 注意事项"></a>AsyncTask 注意事项</h4><p><strong>内存泄漏</strong></p>
+<p><strong>生命周期</strong></p>
+<p>在activity回收之前没有调用AsyncTask.cancle()。可能导致崩溃(activity不在了)。</p>
+<p><strong>结果丢失</strong></p>
+<p>activity回收重建，之前创建的asynctask持有前一个activity的引用，onPostExcute 更新界面不会生效。</p>
+<p><strong>并行 or 串行</strong></p>
+<p>android 1.6 串行</p>
+<p>1.6 2.3 并行</p>
+<p>2.3后 串行 / 并行</p>
+<p>asynctask做不了太高并发  耗时的操作。</p>
+<p>##HandlerThread </p>
+<p>####HandlerThread是什么<br><strong>产生背景</strong><br>我们处理耗时操作，创建子线程处理，处理完毕之后销毁线程，但是，当我们短时间内又一次耗时任务时候，多次创建 销毁，，消耗资源。</p>
+<p>handler+thread+looper</p>
+<p>handlerThread本质  thread内部含有looper 和别的线程不同之处就是含有looper,所以说可以使用handlerThread处理发送消息。<br><img src="https://i.imgur.com/gsLp2S6.png" alt=""><br>串行安全，性能好，不能多任务同时处理，需要等待，多线程数据交互 不安全。</p>
+<p>####HandlerThread源码分析<br>设置线程优先级可以解决一部分数据安全和内存泄漏问题。<br>同步问题，只有线程和lopper创建成功通知getLooper不要在处于阻塞状态。否则处于阻塞状态。</p>
+<p>quitSafely:消息队列回收removeAllFutureMessagesLocked</p>
+<p>quitSafe:removeAllMessagesLocked</p>
+<p><img src="https://i.imgur.com/fWeAcVf.png" alt=""><br><img src="https://i.imgur.com/gIHw1N0.png" alt=""><br><img src="https://i.imgur.com/Q8vZw0s.png" alt=""></p>
+<p>##IntentService</p>
+<p>####什么是IntentService?<br>IntentService 是继承并处理异步请求的一个类，内部有一个工作线程来处理耗时操作，启动它的方式和启动传统的Service一样，同时，当任务执行完毕后，IntentService会自动停止，不需要我们手动去控制或stopSelf()。另外可以启动IntentService很多次，而每一个耗时操作会以工作队列的方式在IntentService的onHandlerIntent回调方法中执行，串行。</p>
+<p>本质上就是一种特殊的Service,优先级比service高，可以使用它执行高优先级的任务。</p>
+<p>内部通过HandlerThread和Handler实现的。</p>
+<p>####使用：<br><img src="https://i.imgur.com/XicmPHl.jpg" alt=""><br><img src="https://i.imgur.com/6rX8JZK.jpg" alt=""><br><img src="https://i.imgur.com/qMoRBBP.jpg" alt=""><br>for循环执行很多次，但是只有一个IntentService实例。<br>创建IntentService时，只需要实现onHandlerIntent和构造方法，onHandlerIntent为异步方法，可以执行耗时操作。</p>
+<p>####源码分析<br><img src="https://i.imgur.com/YwwP4Sj.jpg" alt=""><br>onCreate： 创建handlerThread；创建ServiceHandler(继承handler的handler) 并将持有异步线程的looper传递给handlerThread,这样ServiceHandler就可以执行异步任务了。</p>
+<p>那么IntentService怎么启动异步任务的？</p>
+<p>onStartCommand ：调用onStart()-&gt;调用ServiceHandler.sendMessage()传递消息。消息发送到HandlerThread中进行处理。然后会调用ServiceHandler的handlerMessage 。-&gt;onHandleIntent方法 进而执行异步任务。<br><img src="https://i.imgur.com/ImMQxzB.jpg" alt=""><br>stopSelf(),立即终止；</p>
+<p>stopSelf(msg.arg1):等执行完最后一个任务后终止。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/02/15/2.异步消息处理机制/" data-id="cjs9pyuhy00070kv1zqbnpdhw" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/02/15/3.view相关/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/02/14/React入门项目/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/02/15/7.热门前沿技术/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/02/15/6.开源框架/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/02/15/8.java高级技术/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/02/15/5.Android异常与性能优化/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/02/15/4.Android项目构建/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Zhang Lei<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
