@@ -30,7 +30,7 @@
 <meta property="og:image" content="https://i.imgur.com/qMoRBBP.jpg">
 <meta property="og:image" content="https://i.imgur.com/YwwP4Sj.jpg">
 <meta property="og:image" content="https://i.imgur.com/ImMQxzB.jpg">
-<meta property="og:updated_time" content="2019-02-16T11:22:38.070Z">
+<meta property="og:updated_time" content="2019-02-28T08:44:41.372Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="风清">
 <meta name="twitter:description" content="##Handler ####什么是handlerandroid.view.ViewRootImpl$CalledFromWrongThreadExCeption:Only the  original thread that created a view hierarchy can touch its views.异常只有在原始线程(UI主线程)才能更新UI。handler发送消息给主线程更新UI。">
@@ -170,11 +170,12 @@
 <p>那么IntentService怎么启动异步任务的？</p>
 <p>onStartCommand ：调用onStart()-&gt;调用ServiceHandler.sendMessage()传递消息。消息发送到HandlerThread中进行处理。然后会调用ServiceHandler的handlerMessage 。-&gt;onHandleIntent方法 进而执行异步任务。<br><img src="https://i.imgur.com/ImMQxzB.jpg" alt=""><br>stopSelf(),立即终止；</p>
 <p>stopSelf(msg.arg1):等执行完最后一个任务后终止。</p>
+<p>IntentService </p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/02/15/2.异步消息处理机制/" data-id="cjs9pyuhy00070kv1zqbnpdhw" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/02/15/2.异步消息处理机制/" data-id="cjs9q8v2f0005lcv1mvbrf3ds" class="article-share-link">Share</a>
       
       
     </footer>
@@ -193,7 +194,7 @@
     </a>
   
   
-    <a href="/2019/02/14/React入门项目/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2019/02/14/1.Android基础相关/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
       <div class="article-nav-title"></div>
     </a>

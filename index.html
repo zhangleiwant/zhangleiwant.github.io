@@ -81,7 +81,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/02/15/7.热门前沿技术/" data-id="cjs9pyuhs00030kv1nx4vk89k" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/02/15/7.热门前沿技术/" data-id="cjs9q8v1q0002lcv1xmp7q8bk" class="article-share-link">Share</a>
       
       
     </footer>
@@ -107,7 +107,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/02/15/6.开源框架/" data-id="cjs9pyuhf00010kv1svxlbqx9" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/02/15/6.开源框架/" data-id="cjs9q8v1o0001lcv1rekyfw0h" class="article-share-link">Share</a>
       
       
     </footer>
@@ -133,7 +133,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/02/15/8.java高级技术/" data-id="cjs9pyuhh00020kv1o7ut3w3k" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/02/15/8.java高级技术/" data-id="cjs9q8v200003lcv10vrky5gz" class="article-share-link">Share</a>
       
       
     </footer>
@@ -211,7 +211,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/02/15/5.Android异常与性能优化/" data-id="cjs9pyuhx00060kv11d50cvgx" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/02/15/5.Android异常与性能优化/" data-id="cjs9q8v2g0006lcv13ig7919a" class="article-share-link">Share</a>
       
       
     </footer>
@@ -237,7 +237,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/02/15/4.Android项目构建/" data-id="cjs9pyuha00000kv16wmjhdpw" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/02/15/4.Android项目构建/" data-id="cjs9q8v1h0000lcv19lk6wkrz" class="article-share-link">Share</a>
       
       
     </footer>
@@ -306,7 +306,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/02/15/3.view相关/" data-id="cjs9pyuhv00050kv1fawwa7wd" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/02/15/3.view相关/" data-id="cjs9q8v2e0004lcv1gqmrj6n7" class="article-share-link">Share</a>
       
       
     </footer>
@@ -405,11 +405,143 @@
 <p>那么IntentService怎么启动异步任务的？</p>
 <p>onStartCommand ：调用onStart()-&gt;调用ServiceHandler.sendMessage()传递消息。消息发送到HandlerThread中进行处理。然后会调用ServiceHandler的handlerMessage 。-&gt;onHandleIntent方法 进而执行异步任务。<br><img src="https://i.imgur.com/ImMQxzB.jpg" alt=""><br>stopSelf(),立即终止；</p>
 <p>stopSelf(msg.arg1):等执行完最后一个任务后终止。</p>
+<p>IntentService </p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/02/15/2.异步消息处理机制/" data-id="cjs9pyuhy00070kv1zqbnpdhw" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/02/15/2.异步消息处理机制/" data-id="cjs9q8v2f0005lcv1mvbrf3ds" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-1.Android基础相关" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/02/14/1.Android基础相关/" class="article-date">
+  <time datetime="2019-02-14T13:44:33.589Z" itemprop="datePublished">2019-02-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="什么是activity"><a href="#什么是activity" class="headerlink" title="什么是activity"></a>什么是activity</h3><p>Android提供的一个界面，让用户进行点击或者滑动操作。</p>
+<p>###activity生命周期：</p>
+<p>####1.activity的4种状态:</p>
+<hr>
+<p>running:activity处于活动状态，用户可以点击屏幕。屏幕会做出响应。此时activity处于栈顶状态。</p>
+<hr>
+<p>paused：activity失去焦点时候的状态，被一个非全屏或者透明的activity放置在栈顶，这种时候处于paused状态，这个时候activity失去了和用户交互的能力，用户对屏幕操作是没有反应的。并不是这个activity销毁了，成员变量和状态都还在，内存紧张除外。</p>
+<hr>
+<p>stopped：当一个activity被另外一个activity完全覆盖的时候，这个activity状态就是stopped,不可见，成员变量信息可能还在。</p>
+<hr>
+<p>killed：activtiy被系统回收掉，成员变量信息等不存在的。</p>
+<hr>
+<p>####2.activity生命周期分析</p>
+<p><strong>Activity启动</strong>：</p>
+<p>onCreate()-&gt;activity被创建的时候调用，布局资源，<br>onStart()-&gt;activity正在启动，处于用户可见状态，但还并没有处于前台显示状态，用户还不能和这个activity进行交互。可以理解：activity可以看见无法触摸。<br>onResume()-&gt;activity处于前台显示状态，和用户进行交互。</p>
+<p><strong>点击home键回到主界面</strong>：</p>
+<p>-&gt;onPause():activity失去焦点，不能触摸交互，处于后台不可见状态</p>
+<p>-onStop():activity停止，后台不可见，信息变量可能被系统回收。</p>
+<p><strong>当我们再次start回到原Activity时：</strong></p>
+<p>-&gt;onRestart():activity由不可见变为可见状态时候，调用。</p>
+<p>-&gt;onStart():<br>-&gt;onResume():</p>
+<p><strong>退出当前Activity时候：</strong></p>
+<p>-&gt;onPause()-&gt;onStop()<br>-&gt;onDestroy():销毁状态，回收工作，资源释放。</p>
+<p>####3.android进程优先级<br>前台/可见/服务/后台/空</p>
+<p>前台：前台与用户交互的Activity </p>
+<p>可见：activity处于可见，但不能交互点击。</p>
+<p>服务：后台开启了一个后台服务。</p>
+<p>后台：前台Activity，点击home键  前台进程变成了后台进程。</p>
+<p>###android 任务栈<br>先进先出，管理activity，退出应用需要所有的activity全部退出任务栈。</p>
+<p>####activity启动模式<br>1.standard</p>
+<p>重新创建一个activity(消耗内存)。不会复用任务栈中的activity。</p>
+<p>2.singletop </p>
+<p>栈顶复用模式，判断栈顶有没有这个activity,有就复用，没有就重新创建。</p>
+<p>3.singletask</p>
+<p>栈内复用，检测整个任务栈内是否存在当前需要启动的activity,如果存在直接将activity置于栈顶，把这个activity以上的activity都从任务栈内移除销毁，这个时候会调用onNewIntent()方法。</p>
+<p>4.singleinstance</p>
+<p>某个activity有且只有一个实例，并且这个activity独享任务栈，这种模式就叫做singleinstance。</p>
+<p>用的比较少。</p>
+<p>####scheme跳转协议</p>
+<p>android 的scheme是一种页面内跳转协议，是一种非常好的实现机制，通过定义自己的scheme协议，可以非常方便跳转app中的各个页面；通过scheme协议，服务器可以定制化告诉app跳转那个页面，可以通过通知栏消息定制化跳转页面，可以通过H5页面跳转页面等。</p>
+<p>使用场景：服务端下发一个url 路径,客户端根据url跳转app内页面；h5页面跳转app页面；app页面跳转到另一个app页面。(用的非常多，推广分享使用)。</p>
+<h2 id="fragment相关"><a href="#fragment相关" class="headerlink" title="fragment相关"></a>fragment相关</h2><p>####fragment为什么被称为第五大组件</p>
+<p>在使用别类上，fragment不属于其他四大组件，它有自己的生命周期，同时他可以动态灵活的加载activity当中去，所以说 fragment可以被称为第五大组件。同时fragment并不像activity一样完全独立，虽然他有自己的生命周期，但是他必须依附activity,同时它要加载到activity中。</p>
+<p><strong>fragment加载到activity的两种方式：</strong></p>
+<p>静态加载：添加fragment到activity的布局文件当中。<br>把fragment作为xml的标签添加到activity当中。</p>
+<p>动态加载：  动态在activity中添加fragment。<br><img src="https://i.imgur.com/EMyMKPm.jpg" alt=""></p>
+<p><strong>fragmentPagerAdapter和 FragmentStatePagerAdapter 区别</strong></p>
+<p>viewpager+fragment模式：viewpager是实现应用左右滑动的控件。</p>
+<p>两者切换viewpager时候，区别主要是destroyItem方法：</p>
+<p>FragmentPagerAdapter 该方法里面调用的是detach方法，在页面滑动的时候，只是将fragment和activity脱离，并没有回收内存。适用于页面较少的情况，保留内存，且对系统内存没多大影响。</p>
+<p>FragmentStatePagerAdapter该方法内部调用remove方法，是真正的内存回收。适用于页面较多的情况。</p>
+<p><img src="https://i.imgur.com/p8LUa78.jpg" alt=""><br><img src="https://i.imgur.com/uOWdWEj.jpg" alt=""></p>
+<p>####fragment生命周期</p>
+<p>fragment不是独立的，必须加载到activity当中才可以使用。</p>
+<p><img src="https://i.imgur.com/VURQnEj.png" alt=""></p>
+<p>####fragment之间的通信</p>
+<p>1.在fragment中调用activity中的方法getActivity</p>
+<p>2.在activity中调用fragment中的方法，接口回调。</p>
+<p>3.在fragment中调用fragment中的方法 findFragmentById</p>
+<p>####fragment管理器fragmentManager</p>
+<p>replace 替换 fragment实例。将activity最上层的fragment实例替换成他想替换的fragment。</p>
+<p>add 将一个fragment的实例添加到activity的最上层。</p>
+<p>remove 将fragment实例从activity fragments队列中删除。</p>
+<p>##Service相关</p>
+<p>####Service是什么<br>后台耗时任务，后台长时间运行的任务。<br>程序退出之后，人为的让service在后台保持运行，service保活。</p>
+<p>Service是一个一种可以在后台执行长时间运行操作而没有用户界面的应用组件。</p>
+<p>服务可以由Activity 或者广播启动，一旦启动，即便是activity销毁了，也不会受影响。</p>
+<p>service可以绑定到activity中，可以和activity进行通信，service和activity可能在不同的进程中，不同的进程间进行通信。</p>
+<p>service和broadcast都是运行在主线程当中，都不能做长时间的耗时操作。</p>
+<p>####service和Thread区别：</p>
+<p>Thread:程序执行的最小单元，线程，执行一些异步操作。</p>
+<p>service:android的特殊机制，当它运行的时候，如果是本地的service,它对应的service是运行在主线程中的。不能做耗时操作。</p>
+<p>Thread运行是相互独立的，而service是依托于它所在的主线程中。</p>
+<p>没什么区别，之所以有人把他们联系起来，主要是service翻译的服务运行后台原因。</p>
+<p>可以查看log日志发现线程号和主线程一致。</p>
+<p>重点：如果一定要在service中做耗时操作，在service中要创建子线程，然后在做耗时流程。那么为什么不直接在activity中创建子线程进行耗时操作，因为很难以对子线程进行控制，如果activity被销毁，没有办法获取之前创建的子线程实例。</p>
+<p>而service处理后台任务，activity就可以很放心的finish掉，完全不用担心 无法对后台任务控制的情况。</p>
+<p>应用场景：网络请求，文件处理，等耗时操作开启子线程进行处理；</p>
+<p>如果需要在后台长时间运行并且不需要交互才会使用service 比如音乐播放。</p>
+<p>####启动service方式</p>
+<p><strong>startservice启动服务</strong></p>
+<p> 启动服务，会在后台无限期的运行，如果activity被销毁了，服务不受影响，除非手动关闭服务。<br><img src="https://i.imgur.com/oLNk0xo.png" alt=""><br><img src="https://i.imgur.com/ALSViVu.jpg" alt=""></p>
+<p>oncreate(只会调用一次，如果服务启动了就不会再调用了)-&gt;onbind-&gt;onstartCommand-&gt;onDestroy。</p>
+<p><em>注意点</em>：onstartcommand返回值的解析<a href="https://blog.csdn.net/fenggering/article/details/82535154" title="解析" target="_blank" rel="noopener">https://blog.csdn.net/fenggering/article/details/82535154</a>：<br><img src="https://i.imgur.com/3tn0O4M.jpg" alt=""></p>
+<p>使用步骤：</p>
+<p>1.定义一个类继承service</p>
+<p>2.在Manifest.xml文件中配置该Service</p>
+<p>3.使用Context的startService(Intent)方法启动该服务</p>
+<p>4.不再使用时，调用stopService(Intent)停止该服务。</p>
+<p><strong>bindService绑定服务</strong></p>
+<p> 绑定服务通过接口和activity进行数据交互，多个activity可以绑定一个service,activity和service不在同一进程时，可以进程间交互。如果绑定全部取消之后，这个服务就会自动销毁。</p>
+<p>步骤：</p>
+<p>1.创建BindService服务端，继承Service并在类中，创建一个实现IBinder接口的实例对象并提供公共方法给客户端使用。</p>
+<p>2.从onBind()回调方法返回此Binder实例。</p>
+<p>3.在客户端中，从onServiceConnected()回调方法接收Binder,并使用提供的方法调用绑定服务。<br><img src="https://i.imgur.com/FCZPmnD.jpg" alt=""><br><img src="https://i.imgur.com/S91pj2U.jpg" alt=""><br><img src="https://i.imgur.com/aEipQ68.jpg" alt=""></p>
+<p>##broadcast receiver 广播</p>
+<p>####广播</p>
+<p>定义</p>
+<p>应用程序传递信息，类似java观察者模式。</p>
+<p>在android中，Broadcast是一种广泛运用的在应用程序之间传输信息的机制，Android中我们要发送的广播内容是一个Intent,这个Intent中可以携带我们要传递的数据。</p>
+<p>场景</p>
+<p>分类</p>
+<p>####实现广播-receiver</p>
+<p>####广播实现机制</p>
+<p>####LocalBroadcastManager详解</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/02/14/1.Android基础相关/" data-id="cjs9qaugn0000u8v12ubp0lzu" class="article-share-link">Share</a>
       
       
     </footer>
@@ -437,7 +569,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/02/14/React入门项目/" data-id="cjs9pyuhu00040kv1tnao994a" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/02/14/React入门项目/" data-id="cjs9q8v2o0007lcv1ei8qiio4" class="article-share-link">Share</a>
       
       
     </footer>
